@@ -38,7 +38,7 @@ public class MapItself : MonoBehaviour
         //Moisture map.
         moistureMap = NoiseGenerator.Generate(width, height, scale, moistureWaves, offset);
 
-        //heat map.
+        //Heat map.
         heatMap = NoiseGenerator.Generate(width, height, scale, heatWaves, offset);
 
         for(int x = 0; x < width; x++)
