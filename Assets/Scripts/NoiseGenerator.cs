@@ -6,9 +6,10 @@ public class NoiseGenerator : MonoBehaviour
 {
     
     //I don't need the offset for anything, but it doesn't really hurt to have it, so I left it in.
-    public static float[,] Generate (int width, int height, float scale, Wave[] waves, Vector2 offset)
+    public static float[,] Generate (int width, int height, Wave[] waves, Vector2 offset)
     {
-        //Array and seed for noise mapping. Each wave uses the same seed with different frequences, but it's good enough for our purposes.
+        //Array and seed for noise mapping.
+        //Each wave uses the same seed with different frequences, but it's good enough for our purposes.
         float[,] noiseMap = new float[width, height];
         float seed = Random.Range(0.0f, 1000.0f);
 
@@ -17,8 +18,8 @@ public class NoiseGenerator : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                float posX = (float)x * scale + offset.x;
-                float posY = (float)y * scale + offset.y;
+                float posX = (float)x + offset.x;
+                float posY = (float)y + offset.y;
 
                 float normalization = 0.0f;
 
@@ -46,7 +47,8 @@ public class NoiseGenerator : MonoBehaviour
 public class Wave
 {
     //These are here to make manipulation of the noise function easier.
-    //The seed was originally also determined here, but I wanted it to be truly random in this game.
+    //The seed was originally also determined through here.
+    //After I checked it worked, I commented that out.
     //public float seed;
     public float frequency;
     public float amplitude;

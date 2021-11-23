@@ -19,3 +19,5 @@ MonoBehaviour:
   minHeight: 0.2
   minMoisture: 0.5
   minHeat: 0.3
+  lifeMinus: 2
+  passable: 1

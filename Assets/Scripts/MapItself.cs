@@ -10,7 +10,6 @@ public class MapItself : MonoBehaviour
     [Header("Dimensions")]
     public int width = 50;
     public int height = 50;
-    public float scale = 1.0f;
     public Vector2 offset;
 
     [Header("Height Map")]
@@ -25,21 +24,24 @@ public class MapItself : MonoBehaviour
     public Wave[] heatWaves;
     public float[,] heatMap;
 
+    public int[,] lifeMap;
+    
     void Start()
     {
+        lifeMap = new int[width, height];
         GenerateMap();
     }
 
     void GenerateMap()
     {
         //Height map.
-        heightMap = NoiseGenerator.Generate(width, height, scale, heightWaves, offset);
+        heightMap = NoiseGenerator.Generate(width, height, heightWaves, offset);
 
         //Moisture map.
-        moistureMap = NoiseGenerator.Generate(width, height, scale, moistureWaves, offset);
+        moistureMap = NoiseGenerator.Generate(width, height, moistureWaves, offset);
 
         //Heat map.
-        heatMap = NoiseGenerator.Generate(width, height, scale, heatWaves, offset);
+        heatMap = NoiseGenerator.Generate(width, height, heatWaves, offset);
 
         for(int x = 0; x < width; x++)
         {
@@ -47,6 +49,8 @@ public class MapItself : MonoBehaviour
             {
                 GameObject tile = Instantiate(tilePrefab, new Vector3(x, y, 0), Quaternion.identity);
                 tile.GetComponent<SpriteRenderer>().sprite = GetBiome(heightMap[x, y], moistureMap[x, y], heatMap[x, y]).GetTileSprite();
+                //I tried to think of a more elegant way of referencing lifeMinus value, but failed sadly.
+                lifeMap[x, y] = GetBiome(heightMap[x, y], moistureMap[x, y], heatMap[x, y]).lifeMinus;
             }
 
         }
@@ -70,6 +74,8 @@ public class MapItself : MonoBehaviour
         float curVal = 0.0f;
         BiomePreset biomeToReturn = null;
         
+        //This part just compares the biome suitabilities with each other.
+        //The process itself is explained below.
         foreach(BiomeTempData biome in biomeTemp)
         {
             if(biomeToReturn == null)
@@ -104,7 +110,8 @@ public class MapItself : MonoBehaviour
         }
 
         //What we are returning is the value of each condition combined minus the needed value.
-        //This gives the most suited value for the biome. This was used in the example code I used so I went with it,
+        //This gives the most suited value for the biome.
+        //This was used in the example code I used so I went with it,
         //but I'd likely have the height supersede the other values in a more complete game.
         public float GetDiffValue(float height, float moisture, float heat)
         {
