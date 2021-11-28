@@ -16,6 +16,7 @@ public class BiomePreset : ScriptableObject
     public bool passable = true;
 
     //This allows several different variations of the same biome sprite to appear randomly.
+    //I didn't end up using it as I went with sprites with no variants.
     public Sprite GetTileSprite()
     {
         return tiles[Random.Range(0, tiles.Length)];

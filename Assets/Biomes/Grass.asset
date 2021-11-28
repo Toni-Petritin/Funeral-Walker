@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: -2022454291514961620, guid: 498ddf92bbafaa64d9d53aee906482a4, type: 3}
-  - {fileID: -3831202356669062874, guid: 498ddf92bbafaa64d9d53aee906482a4, type: 3}
-  - {fileID: 8670926691811076372, guid: 498ddf92bbafaa64d9d53aee906482a4, type: 3}
+  - {fileID: 21300000, guid: da80f8c19977f484da1d6ad6961a562a, type: 3}
   minHeight: 0.2
-  minMoisture: 0.5
+  minMoisture: 0.3
   minHeat: 0.3
   lifeMinus: 2
   passable: 1

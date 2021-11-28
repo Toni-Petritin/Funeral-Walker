@@ -10,12 +10,18 @@ public class PlayerController : MonoBehaviour
     public int life = 200;
     private int posX;
     private int posY;
+    public Sprite tombStone;
+    private AudioSource playerAudio;
+    public AudioClip walkSound;
+    public AudioClip deathSound;
 
     //We get the map size here so we don't need to change the movement bounds, if we change it.
+    //Also get the audiosource from main camera.
     void Start()
     {
         xlimit = GameObject.Find("_Map").GetComponent<MapItself>().width - 1;
         ylimit = GameObject.Find("_Map").GetComponent<MapItself>().height - 1;
+        playerAudio = GameObject.Find("Main Camera").GetComponent<AudioSource>();
     }
 
     //These are player movements.
@@ -32,6 +38,7 @@ public class PlayerController : MonoBehaviour
                 posX = (int)Mathf.Round(transform.position.x);
                 posY = (int)Mathf.Round(transform.position.y);
                 life -= GameObject.Find("_Map").GetComponent<MapItself>().lifeMap[posX, posY];
+                playerAudio.PlayOneShot(walkSound, 1.0f);
             }
             if (Input.GetKeyDown("s") && transform.position.y > 0)
             {
@@ -39,6 +46,7 @@ public class PlayerController : MonoBehaviour
                 posX = (int)Mathf.Round(transform.position.x);
                 posY = (int)Mathf.Round(transform.position.y);
                 life -= GameObject.Find("_Map").GetComponent<MapItself>().lifeMap[posX, posY];
+                playerAudio.PlayOneShot(walkSound, 1.0f);
             }
             if (Input.GetKeyDown("a") && transform.position.x > 0)
             {
@@ -46,6 +54,7 @@ public class PlayerController : MonoBehaviour
                 posX = (int)Mathf.Round(transform.position.x);
                 posY = (int)Mathf.Round(transform.position.y);
                 life -= GameObject.Find("_Map").GetComponent<MapItself>().lifeMap[posX, posY];
+                playerAudio.PlayOneShot(walkSound, 1.0f);
             }
             if (Input.GetKeyDown("d") && transform.position.x < xlimit)
             {
@@ -53,8 +62,27 @@ public class PlayerController : MonoBehaviour
                 posX = (int)Mathf.Round(transform.position.x);
                 posY = (int)Mathf.Round(transform.position.y);
                 life -= GameObject.Find("_Map").GetComponent<MapItself>().lifeMap[posX, posY];
+                playerAudio.PlayOneShot(walkSound, 1.0f);
             }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                life = 0;
+            }
+            //This changes the players sprite into a tombstone and plays the death sound.
+            //And because it's here, it's only called once... Should be.
+            if (life <= 0)
+            {
+                GetComponent<SpriteRenderer>().sprite = tombStone;
+                playerAudio.PlayOneShot(deathSound, 1.0f);
+            }
+
         }
         
     }
+
+    void WalkSound()
+    {
+
+    }
+
 }

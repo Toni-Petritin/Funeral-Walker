@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Desert
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: -1771866121167276815, guid: 498ddf92bbafaa64d9d53aee906482a4, type: 3}
-  - {fileID: 2091829175261615561, guid: 498ddf92bbafaa64d9d53aee906482a4, type: 3}
-  - {fileID: 756911166660455246, guid: 498ddf92bbafaa64d9d53aee906482a4, type: 3}
+  - {fileID: 21300000, guid: 32cd67f7ff1d22f488e87b88f04bc674, type: 3}
   minHeight: 0.2
   minMoisture: 0
   minHeat: 0.5
